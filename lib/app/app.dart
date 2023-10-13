@@ -14,7 +14,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  String bitcoinAmount = '';
+  String dollarAmount = '';
   String message = '';
   final apiProvider = ApiService();
   String errorMessage = '';
@@ -29,18 +29,18 @@ class _AppState extends State<App> {
     });
     try {
       // presuming we were going to send a double to the imaginary api here
-      final double parsedValueforApi = double.parse(bitcoinAmount);
+      final double parsedValueforApi = double.parse(dollarAmount);
       Future.delayed(const Duration(seconds: 2), () {
         setState(() {
-          message = 'You successfully bought $bitcoinAmount Bitcoin';
-          bitcoinAmount = '';
+          message = 'You successfully bought \$$dollarAmount of Bitcoin';
+          dollarAmount = '';
           isLoading = false;
         });
       });
     } catch (e) {
       setState(() {
         message = 'Failed to buy Bitcoin';
-        bitcoinAmount = '';
+        dollarAmount = '';
         isLoading = false;
       });
     }
@@ -58,19 +58,6 @@ class _AppState extends State<App> {
         currentPrice = price;
         isLoading = false;
       });
-      // if (test) {
-      //         setState(() {
-      //   priceHistory = historyData;
-      //   currentPrice = price;
-      //   isLoading = false;
-      //   errorMessage = "";
-      // });
-      // } else {
-      //       setState(() {
-      //   errorMessage = "Failed to fetch price data";
-      //   isLoading = false;
-      // });
-      // }
     } catch (e) {
       setState(() {
         errorMessage = "Failed to fetch price data";
@@ -141,18 +128,19 @@ class _AppState extends State<App> {
                 return CustomPageRoute(
                   builder: (context) {
                     return BitcoinBuyForm(
-                      bitcoinAmount: bitcoinAmount,
+                      dollarAmount: dollarAmount,
                       onAmountChanged: (amount) {
                         setState(() {
-                          bitcoinAmount = amount;
+                          String filteredAmount = amount.replaceAll(RegExp(r','), '');
+                          dollarAmount = filteredAmount;
                         });
                       },
                       onBuyPressed: () {
-                        if (double.tryParse(bitcoinAmount) != null) {
+                        if (double.tryParse(dollarAmount) != null) {
                           Navigator.of(context).pushNamed('/confirm');
                         } else {
                           setState(() {
-                            bitcoinAmount = '';
+                            dollarAmount = '';
                           });
                         }
                       },
@@ -163,11 +151,11 @@ class _AppState extends State<App> {
                 return MaterialPageRoute(
                   builder: (context) {
                     return ConfirmationScreen(
-                      bitcoinAmount: bitcoinAmount,
+                      dollarAmount: dollarAmount,
                       onBack: () {
                         Navigator.of(context).pushNamed('/buy');
                         setState(() {
-                          bitcoinAmount = '';
+                          dollarAmount = '';
                         });
                       },
                       onBuyPressed: () {
@@ -191,7 +179,7 @@ class _AppState extends State<App> {
                         onClick: () async {
                           setState(() {
                             message = '';
-                            bitcoinAmount = '';
+                            dollarAmount = '';
                           });
                           final completer = Completer<void>();
                           fetchData().then((_) {
@@ -220,7 +208,7 @@ class NoTransitionPageTransitionsBuilder extends PageTransitionsBuilder {
   final Duration transitionDuration;
 
   NoTransitionPageTransitionsBuilder(
-      {this.transitionDuration = const Duration(milliseconds: 500)});// TODO check
+      {this.transitionDuration = const Duration(milliseconds: 500)});
 
   @override
   Widget buildTransitions<T>(

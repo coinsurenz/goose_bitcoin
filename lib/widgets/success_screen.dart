@@ -23,7 +23,8 @@ class SuccessScreen extends StatelessWidget {
           children: [
             Text(
               message,
-              style: const TextStyle(color: Color(0xFFCCCCCC), fontSize: 20),
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Color(0xFFCCCCCC), fontSize: 18),
             ),
             const SizedBox(height: 10),
             ElevatedButton(

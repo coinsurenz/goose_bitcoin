@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class BitcoinBuyForm extends StatefulWidget {
-  final String bitcoinAmount;
+  final String dollarAmount;
   final ValueChanged<String> onAmountChanged;
   final VoidCallback onBuyPressed;
 
   const BitcoinBuyForm({
     super.key,
-    required this.bitcoinAmount,
+    required this.dollarAmount,
     required this.onAmountChanged,
     required this.onBuyPressed
   });
@@ -17,10 +17,10 @@ class BitcoinBuyForm extends StatefulWidget {
 }
 
 class _BitcoinBuyFormState extends State<BitcoinBuyForm> {
-  String hintText = "Enter amount to buy";
+  String hintText = "Enter \$ amount to buy";
 
   void onClick() {
-    if (double.tryParse(widget.bitcoinAmount) == null) {
+    if (double.tryParse(widget.dollarAmount) == null) {
       setState(() {
         hintText = "Check your input";
       });
@@ -35,7 +35,7 @@ class _BitcoinBuyFormState extends State<BitcoinBuyForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Enter amount to buy',
+            'Enter \$ amount to buy',
             style: TextStyle(color: Color(0xFFCCCCCC), fontSize: 20),
           ),
           const SizedBox(height: 20),

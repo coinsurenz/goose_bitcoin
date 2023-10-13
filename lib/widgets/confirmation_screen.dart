@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ConfirmationScreen extends StatelessWidget {
-  final String bitcoinAmount;
+  final String dollarAmount;
   final VoidCallback onBuyPressed;
   final VoidCallback onBack;
 
   const ConfirmationScreen({
     super.key,
-    required this.bitcoinAmount,
+    required this.dollarAmount,
     required this.onBuyPressed,
     required this.onBack,
   });
@@ -19,8 +19,9 @@ class ConfirmationScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Confirm you want to buy $bitcoinAmount Bitcoin?',
-            style: const TextStyle(color: Color(0xFFCCCCCC), fontSize: 20),
+            'Confirm you want to buy \$$dollarAmount of Bitcoin?',
+            style: const TextStyle(color: Color(0xFFCCCCCC), fontSize: 18),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
           Row(
